@@ -1,4 +1,4 @@
-# 📚 Library Management System API
+# 📚 Library Management System UI
 
 A full-featured backend API for managing a library system. Built with **Express.js**, **TypeScript**, and **MongoDB**, this system enables users to manage books, borrowing operations, and view summarized borrowing data. Ideal for institutions or developers looking to implement a digital library backend.
 
