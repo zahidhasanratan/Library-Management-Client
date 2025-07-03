@@ -6,7 +6,8 @@ export interface Borrow {
 }
 
 export interface BorrowSummary {
-  isbn: string;
+  bookId: string; // ✅ Added this line
   title: string;
+  isbn: string;
   totalBorrowed: number;
 }

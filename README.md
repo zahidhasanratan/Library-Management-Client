@@ -1,69 +1,131 @@
-# React + TypeScript + Vite
+# 📚 Library Management System API
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-featured backend API for managing a library system. Built with **Express.js**, **TypeScript**, and **MongoDB**, this system enables users to manage books, borrowing operations, and view summarized borrowing data. Ideal for institutions or developers looking to implement a digital library backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live URLs
 
-## Expanding the ESLint configuration
+- 🌐 Frontend (React): [Visit Client](https://magenta-semolina-d5b4b9.netlify.app/)
+- 🔗 Backend API (Vercel): [Visit Deployed API](https://libraraywithui.vercel.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📌 Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- 📖 **Book Management**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+  - Create, read, update, and delete books
+  - View by ID
+  - Supports dynamic availability tracking
+
+- 🔁 **Borrowing System**
+
+  - Borrow books with quantity and due date
+  - Reduces available copies automatically
+
+- 📊 **Borrow Summary**
+  - Aggregated summary of borrowed books
+  - Includes book title, ISBN, and total borrowed count
+
+---
+
+## 🛠️ Technologies Used
+
+- **Node.js** & **Express.js** – Backend framework
+- **TypeScript** – Type-safe development
+- **MongoDB** with **Mongoose** – Database and ODM
+- **Vercel** – Serverless deployment
+- **ESLint** – Code formatting
+- **dotenv** – Environment variable management
+
+---
+
+## 📦 Project Setup (Backend)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/zahidhasanratan/Library-Management-Server.git
+cd Library-Management-Server
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3. Create a `.env` file
+
+```env
+PORT=5000
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/libraryDB
+```
+
+### 4. Build TypeScript
+
+```bash
+npm run build
+```
+
+### 5. Start the server (for local development)
+
+```bash
+npm start
+```
+
+---
+
+## 🔌 API Endpoints
+
+### 📘 Books
+
+| Method | Endpoint         | Description       |
+| ------ | ---------------- | ----------------- |
+| GET    | `/api/books`     | Get all books     |
+| GET    | `/api/books/:id` | Get book by ID    |
+| POST   | `/api/books`     | Create a new book |
+| PATCH  | `/api/books/:id` | Update a book     |
+| DELETE | `/api/books/:id` | Delete a book     |
+
+### 📦 Borrowing
+
+| Method | Endpoint               | Description                 |
+| ------ | ---------------------- | --------------------------- |
+| POST   | `/api/borrows/:id`     | Borrow a book by ID         |
+| GET    | `/api/borrows/summary` | Get borrowed summary report |
+
+---
+
+## ✅ Deployment Notes
+
+- Hosted on **Vercel** using a serverless-compatible Express export
+- Main Express app resides in `/api/server.ts`
+- `vercel.json` includes route rewrites for API handling
+
+---
+
+## 📊 Testing (Optional)
+
+To test the API:
+
+- Use [Postman](https://postman.com/) or cURL to hit endpoints
+- Example:
+
+```bash
+curl https://libraraywithui.vercel.app/api/books
+```
+
+---
+
+## 📁 Related Repositories
+
+- 🎨 **Frontend React App**: [Library Management Client](https://github.com/zahidhasanratan/Library-Management-Client)
+- 🧠 **Backend Express API**: [Library Management Server](https://github.com/zahidhasanratan/Library-Management-Server)
+
+---
+
+## 🛋️ Contact
+
+For questions, contact [@zahidhasanratan](https://github.com/zahidhasanratan)
