@@ -18,13 +18,18 @@ export default function BorrowForm() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center py-20">
-        <span className="loading loading-dots loading-lg text-primary" />
+      <div className="d-flex justify-content-center my-5">
+        <div className="spinner-border text-primary" role="status" />
       </div>
     );
   }
+
   if (isError || !book) {
-    return <p className="text-center text-error py-20">Book not found.</p>;
+    return (
+      <div className="alert alert-danger text-center my-5">
+        ❌ Book not found.
+      </div>
+    );
   }
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -43,44 +48,53 @@ export default function BorrowForm() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="card shadow-lg max-w-lg mx-auto">
-        <div className="card-body p-6 space-y-4">
-          <h2 className="card-title text-2xl">{`Borrow "${book.title}"`}</h2>
-          <p className="text-gray-600">
-            Available copies: <span className="font-medium">{book.copies}</span>
+    <div className="container px-3 px-md-5 my-4">
+      <div className="card shadow border-0 max-w-lg mx-auto">
+        <div className="card-header bg-primary text-white">
+          <h5 className="mb-0">{`📚 Borrow "${book.title}"`}</h5>
+        </div>
+
+        <div className="card-body">
+          <p className="text-muted mb-4">
+            Available copies: <strong>{book.copies}</strong>
           </p>
 
-          <form onSubmit={onSubmit} className="space-y-6">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Quantity</span>
-              </label>
+          <form onSubmit={onSubmit} className="row g-3">
+            {/* Quantity */}
+            <div className="col-12 col-md-6">
+              <label className="form-label">Quantity</label>
               <input
                 type="number"
                 min={1}
                 max={book.copies}
                 value={quantity}
                 onChange={(e) => setQuantity(+e.target.value)}
-                className="input input-bordered w-full"
+                className="form-control"
+                required
               />
             </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Due Date</span>
-              </label>
+            {/* Due Date */}
+            <div className="col-12 col-md-6">
+              <label className="form-label">Due Date</label>
               <input
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="input input-bordered w-full"
+                className="form-control"
+                required
               />
             </div>
 
-            <button type="submit" className="btn btn-success w-full">
-              Confirm Borrow
-            </button>
+            {/* Submit */}
+            <div className="col-12">
+              <button
+                type="submit"
+                className="btn btn-success w-100 fw-semibold"
+              >
+                Confirm Borrow
+              </button>
+            </div>
           </form>
         </div>
       </div>

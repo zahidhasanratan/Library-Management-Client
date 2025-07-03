@@ -29,17 +29,17 @@ export default function BorrowSummary() {
 
   return (
     <div className="container px-3 px-md-5 my-4">
-      <div className="card shadow-sm">
+      <div className="card shadow border-0">
         {/* Header */}
-        <div className="card-header bg-primary text-white d-flex align-items-center">
-          <h5 className="mb-0">Borrow Summary</h5>
+        <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h5 className="mb-0">📊 Borrow Summary</h5>
         </div>
 
         {/* Table */}
         <div className="table-responsive" style={{ maxHeight: "70vh" }}>
-          <table className="table table-striped table-hover table-borderless mb-0 align-middle">
-            <thead className="table-light text-uppercase small">
-              <tr>
+          <table className="table table-hover align-middle mb-0">
+            <thead className="sticky-top bg-light shadow-sm">
+              <tr className="text-uppercase small text-muted">
                 <th>Title</th>
                 <th className="d-none d-sm-table-cell">ISBN</th>
                 <th className="text-center">Total Borrowed</th>
@@ -47,10 +47,10 @@ export default function BorrowSummary() {
             </thead>
             <tbody>
               {data.map((s) => (
-                <tr key={s._id}>
+                <tr key={s.bookId}>
                   <td>{s.title}</td>
                   <td className="d-none d-sm-table-cell">{s.isbn}</td>
-                  <td className="text-center">{s.totalBorrowed}</td>
+                  <td className="text-center fw-bold">{s.totalBorrowed}</td>
                 </tr>
               ))}
             </tbody>

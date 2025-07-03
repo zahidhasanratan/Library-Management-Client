@@ -17,8 +17,8 @@ const schema = z.object({
   isbn: z.string().min(5),
   description: z.string().optional(),
   copies: z.coerce.number().min(1),
-  available: z.boolean().optional(),
 });
+
 type FormData = z.infer<typeof schema>;
 
 interface Props {
@@ -29,7 +29,6 @@ export default function BookForm({ mode }: Props) {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
-  // Only fetch when editing
   const {
     data: book,
     isLoading: isBookLoading,
@@ -53,11 +52,9 @@ export default function BookForm({ mode }: Props) {
       isbn: "",
       description: "",
       copies: 1,
-      available: true,
     },
   });
 
-  // When book loads, populate the form
   useEffect(() => {
     if (mode === "edit" && book) {
       reset({
@@ -67,21 +64,24 @@ export default function BookForm({ mode }: Props) {
         isbn: book.isbn,
         description: book.description ?? "",
         copies: book.copies,
-        available: book.available,
       });
     }
   }, [mode, book, reset]);
 
-  // Show spinner while loading book
   if (mode === "edit" && isBookLoading) {
     return (
-      <div className="flex justify-center py-20">
-        <span className="loading loading-dots loading-lg text-primary" />
+      <div className="d-flex justify-content-center my-5">
+        <div className="spinner-border text-primary" role="status" />
       </div>
     );
   }
+
   if (mode === "edit" && bookError) {
-    return <p className="text-center text-error py-20">Failed to load book.</p>;
+    return (
+      <div className="alert alert-danger text-center my-5">
+        ❌ Failed to load book.
+      </div>
+    );
   }
 
   const onSubmit = async (vals: FormData) => {
@@ -101,97 +101,81 @@ export default function BookForm({ mode }: Props) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="card shadow-lg max-w-md mx-auto">
-        <div className="card-body p-6 space-y-4">
-          <h2 className="card-title text-2xl">
-            {mode === "create" ? "Add New Book" : "Edit Book"}
-          </h2>
+    <div className="container px-3 px-md-5 my-4">
+      <div className="card shadow border-0 max-w-lg mx-auto">
+        <div className="card-header bg-primary text-white">
+          <h5 className="mb-0">
+            {mode === "create" ? "📘 Add New Book" : "✏️ Edit Book"}
+          </h5>
+        </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Title</span>
-              </label>
+        <div className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="row g-3">
+            <div className="col-12">
+              <label className="form-label">Title</label>
               <input
                 {...register("title")}
+                className="form-control"
                 placeholder="Book Title"
-                className="input input-bordered w-full"
               />
             </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Author</span>
-              </label>
+            <div className="col-12 col-md-6">
+              <label className="form-label">Author</label>
               <input
                 {...register("author")}
+                className="form-control"
                 placeholder="Author Name"
-                className="input input-bordered w-full"
               />
             </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Genre</span>
-              </label>
+            <div className="col-12 col-md-6">
+              <label className="form-label">Genre</label>
               <input
                 {...register("genre")}
+                className="form-control"
                 placeholder="Genre"
-                className="input input-bordered w-full"
               />
             </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">ISBN</span>
-              </label>
+            <div className="col-12 col-md-6">
+              <label className="form-label">ISBN</label>
               <input
                 {...register("isbn")}
+                className="form-control"
                 placeholder="ISBN Number"
-                className="input input-bordered w-full"
               />
             </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Copies</span>
-              </label>
+            <div className="col-12 col-md-6">
+              <label className="form-label">Copies</label>
               <input
                 type="number"
                 {...register("copies")}
+                className="form-control"
                 placeholder="Number of Copies"
-                className="input input-bordered w-full"
               />
             </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Description</span>
-              </label>
+            <div className="col-12">
+              <label className="form-label">Description</label>
               <textarea
                 {...register("description")}
+                className="form-control"
+                rows={3}
                 placeholder="Description"
-                className="textarea textarea-bordered w-full"
               />
             </div>
 
-            <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                {...register("available")}
-                className="checkbox checkbox-primary"
-              />
-              <span>Available</span>
-            </label>
-
-            <button
-              type="submit"
-              className="btn btn-primary w-full mt-4"
-              disabled={isSubmitting}
-            >
-              {mode === "create" ? "Add Book" : "Update Book"}
-            </button>
+            <div className="col-12">
+              <button
+                type="submit"
+                className="btn btn-primary w-100 fw-semibold"
+                disabled={isSubmitting}
+              >
+                {mode === "create" ? "Add Book" : "Update Book"}
+              </button>
+            </div>
           </form>
         </div>
       </div>
