@@ -18,11 +18,12 @@ export default function BookDetails() {
       confirmButtonText: "Yes, delete",
       cancelButtonText: "Cancel",
       customClass: {
-        confirmButton: "btn btn-error",
-        cancelButton: "btn btn-ghost",
+        confirmButton: "btn btn-danger",
+        cancelButton: "btn btn-secondary",
       },
       buttonsStyling: false,
     });
+
     if (!result.isConfirmed) return;
 
     try {
@@ -36,64 +37,71 @@ export default function BookDetails() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center py-20">
-        <span className="loading loading-dots loading-lg text-primary" />
+      <div className="d-flex justify-content-center my-5">
+        <div className="spinner-border text-primary" role="status" />
       </div>
     );
   }
+
   if (isError || !book) {
-    return <p className="text-center text-error py-20">Book not found.</p>;
+    return (
+      <div className="alert alert-danger text-center my-5">
+        ❌ Book not found.
+      </div>
+    );
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="card shadow-lg bg-base-100">
-        {/* Header */}
-        <div className="card-body p-6">
-          <div className="flex justify-between items-start">
-            <h2 className="text-3xl font-semibold">{book.title}</h2>
-            <div className="btn-group">
+    <div className="container px-3 px-md-5 my-4">
+      <div className="card shadow border-0">
+        <div className="card-body">
+          {/* Header */}
+          <div className="d-flex justify-content-between align-items-start mb-4">
+            <h3 className="mb-0">{book.title}</h3>
+            <div className="btn-group btn-group-sm">
               <Link
                 to={`/edit-book/${book._id}`}
-                className="btn btn-outline btn-sm"
+                className="btn btn-outline-primary"
               >
                 Edit
               </Link>
-              <button onClick={handleDelete} className="btn btn-error btn-sm">
+              <button onClick={handleDelete} className="btn btn-danger">
                 Delete
               </button>
             </div>
           </div>
 
-          {/* Details grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-            <div>
-              <span className="font-medium">Author:</span> {book.author}
+          {/* Book Details Grid */}
+          <div className="row g-3 mb-4">
+            <div className="col-sm-6">
+              <strong>Author:</strong> {book.author}
             </div>
-            <div>
-              <span className="font-medium">Genre:</span> {book.genre}
+            <div className="col-sm-6">
+              <strong>Genre:</strong> {book.genre}
             </div>
-            <div>
-              <span className="font-medium">ISBN:</span> {book.isbn}
+            <div className="col-sm-6">
+              <strong>ISBN:</strong> {book.isbn}
             </div>
-            <div>
-              <span className="font-medium">Copies:</span> {book.copies}
+            <div className="col-sm-6">
+              <strong>Copies:</strong> {book.copies}
             </div>
-            <div className="sm:col-span-2">
-              <span className="font-medium">Available:</span>{" "}
-              {book.available ? (
-                <span className="badge badge-success badge-sm">Yes</span>
-              ) : (
-                <span className="badge badge-error badge-sm">No</span>
-              )}
+            <div className="col-12">
+              <strong>Available:</strong>{" "}
+              <span
+                className={`badge ${
+                  book.available ? "bg-success" : "bg-danger"
+                }`}
+              >
+                {book.available ? "Yes" : "No"}
+              </span>
             </div>
           </div>
 
           {/* Description */}
           {book.description && (
-            <div className="mt-6">
-              <h3 className="text-xl font-medium mb-2">Description</h3>
-              <p className="text-gray-700">{book.description}</p>
+            <div>
+              <h5 className="mb-2">Description</h5>
+              <p className="text-muted">{book.description}</p>
             </div>
           )}
         </div>
