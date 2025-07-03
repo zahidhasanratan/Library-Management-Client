@@ -41,42 +41,6 @@ A full-featured backend API for managing a library system. Built with **Express.
 
 ---
 
-## 📦 Project Setup (Backend)
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/zahidhasanratan/Library-Management-Server.git
-cd Library-Management-Server
-```
-
-### 2. Install dependencies
-
-```bash
-npm install
-```
-
-### 3. Create a `.env` file
-
-```env
-PORT=5000
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/libraryDB
-```
-
-### 4. Build TypeScript
-
-```bash
-npm run build
-```
-
-### 5. Start the server (for local development)
-
-```bash
-npm start
-```
-
----
-
 ## 🔌 API Endpoints
 
 ### 📘 Books
@@ -103,19 +67,6 @@ npm start
 - Hosted on **Vercel** using a serverless-compatible Express export
 - Main Express app resides in `/api/server.ts`
 - `vercel.json` includes route rewrites for API handling
-
----
-
-## 📊 Testing (Optional)
-
-To test the API:
-
-- Use [Postman](https://postman.com/) or cURL to hit endpoints
-- Example:
-
-```bash
-curl https://libraraywithui.vercel.app/api/books
-```
 
 ---
 
